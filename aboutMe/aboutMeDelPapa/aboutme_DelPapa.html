@@ -51,6 +51,29 @@
       .interests {
         margin-top: 20px;
       }
+      .interest-item {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 15px;
+        margin-bottom: 15px;
+      }
+      .interest-item img {
+        width: 50px;
+        height: 50px;
+        border-radius: 5px;
+      }
+      .back-link {
+        display: inline-block;
+        margin-top: 20px;
+        text-decoration: none;
+        color: #5aa9e6;
+        font-size: 16px;
+        font-weight: 600;
+      }
+      .back-link:hover {
+        color: #ffcc00;
+      }
     </style>
   </head>
   <body>
@@ -60,7 +83,9 @@
       <h1>Robert Del Papa</h1>
       <p>
         Junior at St. Edward’s who loves to play games and hang out with fellow
-        CS majors.
+        CS majors. Robert is currently looking to expand his horizons to be able
+        to learn and grow from the things around him. Living life to the max and
+        dedicated to give his best in all of his endeavors.
       </p>
 
       <div class="social-links">
@@ -75,10 +100,21 @@
 
       <div class="interests">
         <h2>Interests</h2>
-        <p>🎮 Video Games</p>
-        <p>🎥 Foreign Media</p>
-        <p>🐱 Cats</p>
+        <div class="interest-item">
+          <img src="videogames.jpg" alt="Video Games" />
+          <p>Video Games</p>
+        </div>
+        <div class="interest-item">
+          <img src="foreignmedia.jpg" alt="Foreign Media" />
+          <p>Foreign Media</p>
+        </div>
+        <div class="interest-item">
+          <img src="cats.jpg" alt="Cats" />
+          <p>Cats</p>
+        </div>
       </div>
+
+      <a href="aboutUs.html" class="back-link">⬅ Back to About us Page</a>
     </div>
   </body>
 </html>
