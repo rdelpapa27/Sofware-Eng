@@ -313,8 +313,29 @@
         }
 
         function addToCart() {
-            alert("Item added to cart!");
+    let title = document.getElementById("popup-title").innerText;
+    let price = document.getElementById("popup-price").innerText;
+    
+    // Find the corresponding product image
+    let allProducts = document.querySelectorAll(".product");
+    let imageSrc = "";
+
+    allProducts.forEach((product) => {
+        let productTitle = product.querySelector(".product-title").innerText;
+        if (productTitle === title) {
+            imageSrc = product.querySelector("img").src;
         }
+    });
+
+    // Retrieve cart from localStorage or create a new one
+    let cart = JSON.parse(localStorage.getItem("cart")) || [];
+    cart.push({ title, price, imageSrc });
+
+    // Save updated cart back to localStorage
+    localStorage.setItem("cart", JSON.stringify(cart));
+
+    alert(title + " added to cart!");
+}
     </script>
 </body>
 </html>
