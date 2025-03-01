@@ -1,0 +1,278 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Orders</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #111;
+            color: #fff;
+            margin: 0;
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+        }
+
+        .header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background: rgba(0, 0, 0, 0.85);
+            padding: 20px 40px;
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            width: 100%;
+            z-index: 100;
+        }
+
+        .header .title {
+            font-size: 2.5em;
+            font-weight: bold;
+            flex-grow: 1;
+            text-align: center;
+        }
+
+        .header .icons {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            position: absolute;
+            left: 20px; /* Moves buttons to the left */
+        }
+
+        .nav-button {
+            background-color: #444;
+            color: white;
+            border: none;
+            padding: 10px 15px;
+            font-size: 1em;
+            border-radius: 6px;
+            cursor: pointer;
+            font-weight: bold;
+            transition: background 0.3s ease;
+            text-decoration: none;
+        }
+
+        .nav-button:hover {
+            background-color: #666;
+        }
+
+        .main-content {
+            flex-grow: 1;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            padding-top: 100px;
+        }
+
+        .cart-container {
+            background: #222;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.2);
+            width: 90%;
+            max-width: 800px;
+        }
+
+        .cart-item-container {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 15px;
+            background: #333;
+            margin: 10px 0;
+            border-radius: 10px;
+            transition: transform 0.2s ease;
+        }
+
+        .cart-item-container:hover {
+            transform: scale(1.02);
+        }
+
+        .cart-image {
+            width: 90px;
+            height: auto;
+            border-radius: 5px;
+            margin-right: 15px;
+        }
+
+        .cart-details {
+            text-align: left;
+            flex-grow: 1;
+        }
+
+        .cart-details h3 {
+            margin: 5px 0;
+            font-size: 1.4em;
+            color: #fff;
+        }
+
+        .cart-details p {
+            font-size: 1.2em;
+            color: yellow;
+            margin: 5px 0;
+        }
+
+        .remove-btn {
+            background-color: red;
+            color: white;
+            border: none;
+            padding: 7px 12px;
+            cursor: pointer;
+            border-radius: 6px;
+            font-size: 1em;
+            transition: background 0.3s ease;
+        }
+
+        .remove-btn:hover {
+            background-color: darkred;
+        }
+
+        .total-price {
+            font-size: 1.5em;
+            font-weight: bold;
+            color: yellow;
+            margin-top: 20px;
+        }
+
+        .place-order-btn {
+            background-color: green;
+            color: white;
+            border: none;
+            padding: 15px;
+            width: 100%;
+            font-size: 1.3em;
+            margin-top: 20px;
+            cursor: pointer;
+            border-radius: 8px;
+            font-weight: bold;
+            transition: background 0.3s ease;
+        }
+
+        .place-order-btn:hover {
+            background-color: darkgreen;
+        }
+
+        footer {
+            background: #000;
+            color: white;
+            text-align: center;
+            padding: 20px;
+            margin-top: auto; /* Pushes the footer to the bottom */
+        }
+    </style>
+</head>
+<body>
+
+    <div class="header">
+        <div class="icons">
+            <a href="http://161.35.99.95:3000/landingPage.html#login" class="nav-button">Home</a>
+            <a href="http://161.35.99.95:3000/catalog.html" class="nav-button">Catalog</a>
+        </div>
+        <div class="title">Your Cart</div>
+    </div>
+
+    <div class="main-content">
+        <div class="cart-container">
+            <h2>Your Orders</h2>
+            <div id="cart-items"></div>
+            <div class="total-price" id="total-price">Total: $0</div>
+            <button class="place-order-btn" onclick="placeOrder()">Place Order</button>
+        </div>
+    </div>
+
+    <footer>
+        <p>&copy; 2025 Deluxury Autos. All Rights Reserved.</p>
+    </footer>
+
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            let cart = JSON.parse(localStorage.getItem("cart")) || [];
+            updateCartPage(cart);
+        });
+
+        function updateCartPage(cart) {
+            let cartContainer = document.getElementById("cart-items");
+            let totalPriceElement = document.getElementById("total-price");
+            cartContainer.innerHTML = "";
+            let total = 0;
+
+            if (cart.length === 0) {
+                cartContainer.innerHTML = "<p>Your cart is empty.</p>";
+                totalPriceElement.innerText = "Total: $0";
+                return;
+            }
+
+            cart.forEach((item, index) => {
+                let cartItem = document.createElement("div");
+                cartItem.classList.add("cart-item-container");
+
+                let priceNumber = parseFloat(item.price.replace(/[^0-9.]/g, "")); // Extract number from price string
+                total += priceNumber;
+
+                cartItem.innerHTML = `
+                    <img src="${item.imageSrc}" alt="${item.title}" class="cart-image">
+                    <div class="cart-details">
+                        <h3>${item.title}</h3>
+                        <p>${item.price}</p>
+                        <button class="remove-btn" onclick="removeFromCart(${index})">Remove</button>
+                    </div>
+                `;
+                cartContainer.appendChild(cartItem);
+            });
+
+            totalPriceElement.innerText = "Total: $" + total.toLocaleString();
+        }
+
+        function removeFromCart(index) {
+            let cart = JSON.parse(localStorage.getItem("cart")) || [];
+            cart.splice(index, 1);
+            localStorage.setItem("cart", JSON.stringify(cart));
+            updateCartPage(cart);
+        }
+
+        function placeOrder() {
+    let cart = JSON.parse(localStorage.getItem("cart")) || [];
+
+    if (cart.length === 0) {
+        alert("Your cart is empty!");
+        return;
+    }
+
+    if (confirm("Are you sure you want to place the order?")) {
+        let orders = JSON.parse(localStorage.getItem("orders")) || [];
+        
+        // Add current order with timestamp
+        let newOrder = {
+            id: new Date().getTime(),  // Unique order ID (timestamp)
+            items: cart,
+            date: new Date().toLocaleString() // Store human-readable date
+        };
+
+        orders.push(newOrder);
+        localStorage.setItem("orders", JSON.stringify(orders));
+
+        // Clear the cart
+        localStorage.removeItem("cart");
+        updateCartPage([]);
+
+        alert("Order placed successfully!");
+    }
+}
+
+    </script>
+
+</body>
+</html>
