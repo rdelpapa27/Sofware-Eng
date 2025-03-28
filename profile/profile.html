@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Profile</title>
+    <title>Profile - Deluxury Autos</title>
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
     <style>
         * {
@@ -98,6 +98,21 @@
         .order-history tr:nth-child(even) {
             background: #222;
         }
+        .logout-button {
+            background-color: red;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            margin-top: 20px;
+            font-size: 1.2em;
+            border-radius: 8px;
+            cursor: pointer;
+            font-weight: bold;
+            transition: background 0.3s ease;
+        }
+        .logout-button:hover {
+            background-color: darkred;
+        }
         footer {
             background: #000;
             color: white;
@@ -119,21 +134,36 @@
     <div class="main-content">
         <div class="profile-container">
             <div class="profile-pic"></div>
-            <h2 id="username">Username</h2>
-            <h3>Order History</h3>
+            <h2 id="username">Loading...</h2>
+            <h3>Email: <span id="email">Loading...</span></h3>
+            <h3>Processing Orders</h3>
             <table class="order-history">
                 <thead>
                     <tr>
-                        <th>Order #</th>
-                        <th>Items</th>
-                        <th>Status</th>
                         <th>Total Price</th>
+                        <th>Status</th>
+                        <th>Product Name</th>
+                    </tr>
+                </thead>
+                <tbody id="order-summary">
+                    <tr><td colspan="3">Loading...</td></tr>
+                </tbody>
+            </table>
+            
+            <h3>Order Details</h3>
+            <table class="order-history">
+                <thead>
+                    <tr>
+                        <th>Order Title</th>
+                        <th>Order Date</th>
                     </tr>
                 </thead>
                 <tbody id="order-list">
-                    <tr><td colspan="4">No orders found.</td></tr>
+                    <tr><td colspan="2">Loading...</td></tr>
                 </tbody>
             </table>
+            
+            <button class="logout-button" onclick="logout()">Logout</button>
         </div>
     </div>
 
@@ -142,35 +172,98 @@
     </footer>
 
     <script>
-        document.addEventListener("DOMContentLoaded", function () {
-            let username = localStorage.getItem("username") || "Guest";
-            document.getElementById("username").innerText = username;
+        document.addEventListener("DOMContentLoaded", async function () {
+            console.log("🔍 Checking session...");
 
-            let orders = JSON.parse(localStorage.getItem("orders")) || [];
-            let orderList = document.getElementById("order-list");
-            orderList.innerHTML = "";
-            
-            if (orders.length === 0) {
-                orderList.innerHTML = "<tr><td colspan='4'>No orders found.</td></tr>";
-                return;
+            try {
+                const response = await fetch("http://161.35.99.95:3000/api/user", {
+                    method: "GET",
+                    credentials: "include"
+                });
+
+                const userData = await response.json();
+
+                if (!response.ok) {
+                    console.warn("⚠️ Not logged in. Redirecting to login...");
+                    window.location.href = "http://161.35.99.95:3000/login/login.html";
+                    return;
+                }
+
+                console.log("✅ User is logged in:", userData);
+                document.getElementById("username").innerText = userData.username;
+                document.getElementById("email").innerText = userData.email;
+
+                fetchProcessingOrders(userData.userId);
+
+            } catch (error) {
+                console.error("❌ Error loading profile:", error);
+                window.location.href = "http://161.35.99.95:3000/login/login.html";
             }
-
-            orders.sort((a, b) => new Date(b.date) - new Date(a.date));
-
-            orders.forEach(order => {
-                let itemsDisplay = order.items.length > 2 ? 
-                    `${order.items[0]}, ${order.items[1]}, ...` : 
-                    order.items.join(", ");
-                
-                let row = `<tr>
-                    <td>${order.orderNumber}</td>
-                    <td>${itemsDisplay}</td>
-                    <td>${order.status}</td>
-                    <td>$${order.totalPrice.toFixed(2)}</td>
-                </tr>`;
-                orderList.innerHTML += row;
-            });
         });
+
+        async function fetchProcessingOrders(userId) {
+    console.log("📡 Fetching processing orders...");
+    try {
+        const ordersResponse = await fetch(`http://161.35.99.95:3000/api/orders/${userId}`, {
+            method: "GET",
+            credentials: "include"
+        });
+
+        if (!ordersResponse.ok) {
+            console.warn("⚠️ No processing orders found.");
+            document.getElementById("order-summary").innerHTML = "<tr><td colspan='3'>No orders found.</td></tr>";
+            return;
+        }
+
+        const orders = await ordersResponse.json();
+        console.log("📦 Processing orders retrieved:", orders);
+        let orderSummary = document.getElementById("order-summary");
+        let orderList = document.getElementById("order-list");
+
+        orderSummary.innerHTML = "";
+        orderList.innerHTML = "";
+
+        const latestOrder = orders[0]; // Assuming latest order is the most relevant
+        if (latestOrder) {
+            let itemsDisplay = latestOrder.items.map(item => item.name || "Unknown Product").join(", ");
+            let totalPrice = parseFloat(latestOrder.total_price) || 0;
+
+            orderSummary.innerHTML = `
+                <tr>
+                    <td><strong>$${totalPrice.toFixed(2)}</strong></td>
+                    <td>${latestOrder.status}</td>
+                    <td>${itemsDisplay}</td>
+                </tr>`;
+        } else {
+            orderSummary.innerHTML = "<tr><td colspan='3'>No orders available.</td></tr>";
+        }
+
+        orders.forEach(order => {
+            let row = `<tr>
+                <td><strong>Order #${order.id}</strong></td>
+                <td>${new Date(order.order_date).toLocaleString()}</td>
+            </tr>`;
+            orderList.innerHTML += row;
+        });
+    } catch (error) {
+        console.error("❌ Error fetching orders:", error);
+        document.getElementById("order-summary").innerHTML = "<tr><td colspan='3'>Error loading orders.</td></tr>";
+    }
+}
+
+
+        function logout() {
+            fetch("http://161.35.99.95:3000/api/logout", {
+                method: "POST",
+                credentials: "include"
+            })
+            .then(response => response.json())
+            .then(data => {
+                console.log("✅ Logout successful:", data);
+                window.location.href = "http://161.35.99.95:3000/login/login.html";
+            })
+            .catch(error => console.error("❌ Logout error:", error));
+        }
     </script>
 </body>
 </html>
