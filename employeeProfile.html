@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Employee Profile - Deluxury Autos</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #111;
+            color: #fff;
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+        }
+        .header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background: rgba(0, 0, 0, 0.85);
+            padding: 20px 40px;
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            width: 100%;
+            z-index: 100;
+        }
+        .header .title {
+            font-size: 2.5em;
+            font-weight: bold;
+            flex-grow: 1;
+            text-align: center;
+        }
+        .header .icons {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            position: absolute;
+            left: 20px;
+        }
+        .nav-button {
+            background-color: #444;
+            color: white;
+            border: none;
+            padding: 10px 15px;
+            font-size: 1em;
+            border-radius: 6px;
+            cursor: pointer;
+            font-weight: bold;
+            transition: background 0.3s ease;
+            text-decoration: none;
+        }
+        .nav-button:hover {
+            background-color: #666;
+        }
+        .main-content {
+            flex-grow: 1;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding-top: 100px;
+        }
+        .profile-container {
+            background: #222;
+            padding: 20px;
+            border-radius: 10px;
+            width: 90%;
+            max-width: 800px;
+            text-align: center;
+        }
+        .order-history {
+            width: 100%;
+            margin-top: 20px;
+            border-collapse: collapse;
+        }
+        .order-history th, .order-history td {
+            border: 1px solid #444;
+            padding: 10px;
+            text-align: left;
+        }
+        .order-history th {
+            background: #333;
+        }
+        .order-history tr:nth-child(even) {
+            background: #222;
+        }
+        .action-button {
+            background-color: #008CBA;
+            color: white;
+            border: none;
+            padding: 10px 15px;
+            font-size: 1em;
+            border-radius: 6px;
+            cursor: pointer;
+            font-weight: bold;
+            transition: background 0.3s ease;
+            text-decoration: none;
+        }
+        .action-button:hover {
+            background-color: #005f7f;
+        }
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 200;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.7);
+            justify-content: center;
+            align-items: center;
+        }
+        .modal-content {
+            background: #222;
+            padding: 20px;
+            border-radius: 10px;
+            text-align: center;
+            width: 80%;
+            max-width: 500px;
+        }
+        .modal-content select, .modal-content button {
+            margin-top: 10px;
+            padding: 10px;
+            border-radius: 6px;
+        }
+        .close-button {
+            background-color: red;
+            color: white;
+            border: none;
+            padding: 10px 15px;
+            cursor: pointer;
+            font-weight: bold;
+            border-radius: 6px;
+        }
+        footer {
+            background: #000;
+            color: white;
+            text-align: center;
+            padding: 20px;
+            margin-top: auto;
+        }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <div class="icons">
+            <a href="landingPage.html" class="nav-button">Home</a>
+            <a href="orderDashboard.html" class="nav-button">Order Dashboard</a>
+        </div>
+        <div class="title">Employee Profile</div>
+    </div>
+
+    <div class="main-content">
+        <div class="profile-container">
+            <h2 id="employee-name">--</h2>
+            <h3>Email: <span id="employee-email">--</span></h3>
+            <h3>Claimed Orders</h3>
+            <table class="order-history">
+                <thead>
+                    <tr>
+                        <th>Order ID</th>
+                        <th>Status</th>
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+                <tbody id="order-list">
+                    <tr><td colspan="3">--</td></tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+    <footer>
+        <p>&copy; 2025 Deluxury Autos. All Rights Reserved.</p>
+    </footer>
+</body>
+</html>

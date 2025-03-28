@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Order Dashboard</title>
+    <link rel="stylesheet" href="styles.css">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background: #111;
+            color: #ddd;
+        }
+        .header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background: rgba(0, 0, 0, 0.85);
+            padding: 20px 40px;
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            width: 100%;
+            z-index: 100;
+        }
+        .header .title {
+            font-size: 2.5em;
+            font-weight: bold;
+            flex-grow: 1;
+            text-align: center;
+        }
+        .header .icons {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            position: absolute;
+            left: 20px;
+        }
+        .nav-btn {
+            background: white;
+            color: black;
+            padding: 10px 15px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: 0.3s;
+            font-weight: bold;
+        }
+        .nav-btn:hover {
+            background: #444;
+            color: white;
+        }
+        .dashboard {
+            padding: 100px 20px 20px;
+            text-align: center;
+        }
+        .order-list {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 20px;
+        }
+        .order-item {
+            background: #222;
+            width: 80%;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+            transition: transform 0.3s;
+            text-align: left;
+            animation: fadeIn 1.5s ease-in;
+        }
+        .order-item:hover {
+            transform: scale(1.05);
+        }
+        .order-header {
+            font-size: 20px;
+            font-weight: bold;
+        }
+        .claim-btn {
+            background: white;
+            color: black;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: 0.3s;
+            display: block;
+            margin-top: 10px;
+        }
+        .claim-btn:hover {
+            background: #444;
+            color: white;
+        }
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(-20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+    </style>
+</head>
+<body>
+    <header class="header">
+        <div class="icons">
+            <button class="nav-btn" onclick="location.href='landingPage.html'">Home</button>
+            <button class="nav-btn" onclick="location.href='employeeProfile.html'">Employee Profile</button>
+        </div>
+        <div class="title">Order Dashboard</div>
+    </header>
+    
+    <section class="dashboard">
+        <h1>Non-Claimed Orders</h1>
+        <div class="order-list">
+            <div class="order-item">
+                <div class="order-header">Order #--</div>
+                <p>Customer: --</p>
+                <p>Items: Car Model -- </p>
+                <p>Date: --</p>
+                <button class="claim-btn">Claim Order</button>
+            </div>
+            <div class="order-item">
+                <div class="order-header">Order #--</div>
+                <p>Customer: --</p>
+                <p>Items: Car Model --</p>
+                <p>Date: --</p>
+                <button class="claim-btn">Claim Order</button>
+            </div>
+        </div>
+    </section>
+</body>
+</html>
