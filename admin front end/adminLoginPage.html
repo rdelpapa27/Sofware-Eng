@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Admin Login - Deluxury Autos</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #111;
+      color: #ddd;
+      margin: 0;
+      padding: 0;
+    }
+
+    header {
+      background-color: rgba(0, 0, 0, 0.85);
+      padding: 20px;
+      text-align: center;
+      font-size: 28px;
+      font-weight: bold;
+      color: white;
+    }
+
+    .form-container {
+      max-width: 400px;
+      margin: 100px auto 50px;
+      background-color: #222;
+      padding: 30px;
+      border-radius: 8px;
+      box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.5);
+      text-align: center;
+    }
+
+    .form-container h2 {
+      margin-bottom: 20px;
+      color: white;
+    }
+
+    .form-container label {
+      display: block;
+      margin-bottom: 5px;
+      color: #bbb;
+      text-align: left;
+    }
+
+    .form-container input {
+      width: 100%;
+      padding: 10px;
+      margin-bottom: 15px;
+      border: none;
+      border-radius: 5px;
+      background-color: #333;
+      color: white;
+    }
+
+    .form-container input:focus {
+      outline: none;
+      border: 1px solid #555;
+    }
+
+    .form-container button {
+      width: 100%;
+      padding: 12px;
+      background-color: white;
+      color: black;
+      font-weight: bold;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+      transition: 0.3s;
+    }
+
+    .form-container button:hover {
+      background-color: #444;
+      color: white;
+    }
+
+    .nav-links {
+      margin-top: 30px;
+    }
+
+    .nav-links a {
+      display: inline-block;
+      background-color: #333;
+      color: white;
+      padding: 10px 15px;
+      border-radius: 5px;
+      text-decoration: none;
+      margin: 5px;
+      transition: background-color 0.3s;
+    }
+
+    .nav-links a:hover {
+      background-color: #555;
+    }
+
+    footer {
+      text-align: center;
+      background-color: #000;
+      color: white;
+      padding: 20px;
+      position: fixed;
+      bottom: 0;
+      width: 100%;
+    }
+  </style>
+</head>
+<body>
+  <header>Admin Login</header>
+
+  <div class="form-container">
+    <h2>Sign In as Administrator</h2>
+    <form id="admin-login-form">
+      <label for="email">Email</label>
+      <input type="email" id="email" name="email" required />
+
+      <label for="password">Password</label>
+      <input type="password" id="password" name="password" required />
+
+      <button type="submit">Login</button>
+    </form>
+
+    <div class="nav-links">
+      <h3>Quick Links</h3>
+      <a href="http://161.35.99.95:3000/landingPage.html">Homepage</a>
+      <a href="http://161.35.99.95:3000/employeeLogin.html">Employee Login</a>
+      <a href="http://161.35.99.95:3000/landingPage.html#login">Customer Login</a>
+    </div>
+  </div>
+
+  <footer>
+    <p>&copy; 2025 Deluxury Autos. All Rights Reserved.</p>
+  </footer>
+
+  <script src="adminLogin.js"></script>
+</body>
+</html>
