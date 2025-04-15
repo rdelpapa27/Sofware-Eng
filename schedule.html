@@ -1,0 +1,200 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Book a Test Drive</title>
+  <link rel="stylesheet" href="styles.css" />
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 0;
+      padding: 0;
+      background: #111;
+      color: #ddd;
+    }
+
+    .header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      background: rgba(0, 0, 0, 0.85);
+      padding: 20px 40px;
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      width: 100%;
+      z-index: 100;
+    }
+
+    .header .title {
+      font-size: 2.5em;
+      font-weight: bold;
+      flex-grow: 1;
+      text-align: center;
+    }
+
+    .header .icons {
+      display: flex;
+      align-items: center;
+      gap: 15px;
+      position: absolute;
+      left: 20px;
+    }
+
+    .nav-btn {
+      background: white;
+      color: black;
+      padding: 10px 15px;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+      transition: 0.3s;
+      font-weight: bold;
+    }
+
+    .nav-btn:hover {
+      background: #444;
+      color: white;
+    }
+
+    .dashboard {
+      padding: 100px 20px 40px;
+      text-align: center;
+    }
+
+    .section {
+      margin-bottom: 40px;
+    }
+
+    .section-title {
+      font-size: 1.8em;
+      margin-bottom: 20px;
+    }
+
+    input,
+    select,
+    textarea {
+      width: 100%;
+      padding: 10px;
+      border-radius: 5px;
+      border: none;
+      font-size: 1em;
+      font-family: Arial, sans-serif;
+      background-color: #333;
+      color: #ddd;
+    }
+
+    input[type="text"] {
+      background-color: #333;
+      color: #ddd;
+      border: 1px solid #555;
+    }
+
+    input[type="text"]:focus {
+      outline: none;
+      border-color: #888;
+      box-shadow: 0 0 5px rgba(255, 255, 255, 0.2);
+    }
+
+    .form-center {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      flex-direction: column;
+      margin: 0 auto;
+      width: 100%;
+    }
+
+    .form-center form {
+      width: 60%;
+      max-width: 500px;
+      display: flex;
+      flex-direction: column;
+      gap: 15px;
+      background: #222;
+      padding: 30px;
+      border-radius: 10px;
+      box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+      animation: fadeIn 1.5s ease-in;
+    }
+
+    .submit-btn {
+      background: white;
+      color: black;
+      padding: 12px 20px;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+      transition: 0.3s;
+      font-weight: bold;
+    }
+
+    .submit-btn:hover {
+      background: #444;
+      color: white;
+    }
+
+    @keyframes fadeIn {
+      from {
+        opacity: 0;
+        transform: translateY(-20px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    footer {
+      text-align: center;
+      background-color: #000;
+      color: white;
+      padding: 20px;
+      position: fixed;
+      bottom: 0;
+      width: 100%;
+    }
+
+  </style>
+</head>
+<body>
+  <header class="header">
+    <div class="icons">
+      <button class="nav-btn" onclick="location.href='landingPage.html'">Home</button>
+    </div>
+    <div class="title">Book a Test Drive</div>
+  </header>
+
+  <section class="dashboard">
+    <div class="section">
+      <div class="section-title">Test Drive Form</div>
+      <div class="form-center">
+        <form>
+          <input type="text" placeholder="Full Name" required />
+          <input type="email" placeholder="Email Address" required />
+          <input type="tel" placeholder="Phone Number" required />
+          <input type="text" placeholder="Date (MM-DD-YYYY)" required />
+          <input type="text" placeholder="Time (HH:MM)" required />
+         
+          <select required>
+            <option value="">Select Car Model</option>
+            <option value="model-a">Model 1</option>
+            <option value="model-b">Model 2</option>
+            <option value="model-c">Model 3</option>
+          </select>
+         
+          <textarea placeholder="Tell us more (optional)" rows="4"></textarea>
+         
+          <button class="submit-btn">Submit</button>
+        
+        </form>
+      </div>
+    </div>
+  </section>
+  <footer>
+    <p>&copy; 2025 Deluxury Autos. All Rights Reserved.</p>
+  </footer>
+</body>
+</html>
