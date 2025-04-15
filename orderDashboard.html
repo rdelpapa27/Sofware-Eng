@@ -107,6 +107,64 @@
         }
     </style>
 </head>
+<script>
+    document.addEventListener("DOMContentLoaded", async () => {
+        const orderList = document.querySelector(".order-list");
+        orderList.innerHTML = ""; // Clear placeholder orders
+
+        try {
+            const response = await fetch("http://161.35.99.95:3000/api/employee/orders", {
+                credentials: "include"
+            });
+
+            const orders = await response.json();
+
+            if (!orders.length) {
+                orderList.innerHTML = "<p>No unclaimed orders available.</p>";
+                return;
+            }
+
+            orders.forEach(order => {
+                const orderDiv = document.createElement("div");
+                orderDiv.className = "order-item";
+                orderDiv.innerHTML = `
+                    <div class="order-header">Order #${order.order_id}</div>
+                    <p>Items: ${order.products}</p>
+                    <p>Date: ${new Date(order.order_date).toLocaleString()}</p>
+                    <button class="claim-btn" onclick="claimOrder(${order.order_id})">Claim Order</button>
+                `;
+                orderList.appendChild(orderDiv);
+            });
+
+        } catch (err) {
+            console.error("❌ Failed to load orders:", err);
+            orderList.innerHTML = "<p>Error loading orders. Try again later.</p>";
+        }
+    });
+
+    async function claimOrder(orderId) {
+        try {
+            const response = await fetch(`http://161.35.99.95:3000/api/employee/claim-order/${orderId}`, {
+                method: "POST",
+                credentials: "include"
+            });
+
+            const result = await response.json();
+
+            if (response.ok) {
+                alert("✅ Order claimed!");
+                location.reload(); // Reload to reflect changes
+            } else {
+                alert("⚠️ " + result.message);
+            }
+
+        } catch (err) {
+            console.error("❌ Error claiming order:", err);
+            alert("Error claiming order.");
+        }
+    }
+</script>
+
 <body>
     <header class="header">
         <div class="icons">
@@ -121,14 +179,16 @@
         <div class="order-list">
             <div class="order-item">
                 <div class="order-header">Order #--</div>
-                <p>Customer: --</p>
+                <p>Customer: ${order.customer_name}</p>
+
                 <p>Items: Car Model -- </p>
                 <p>Date: --</p>
                 <button class="claim-btn">Claim Order</button>
             </div>
             <div class="order-item">
                 <div class="order-header">Order #--</div>
-                <p>Customer: --</p>
+                <p>Customer: ${order.customer_name}</p>
+
                 <p>Items: Car Model --</p>
                 <p>Date: --</p>
                 <button class="claim-btn">Claim Order</button>
