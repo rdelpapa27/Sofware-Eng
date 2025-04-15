@@ -231,14 +231,17 @@
     <div class="header">
         <div class="title">CARS OVERVIEW</div>
         <div class="icons">
-            <a href="landing/landingPage.html">
+            <a href="landingPage.html">
                 <img src="home.png" alt="Home" class="icon-img">
             </a>
-            <a href="Orders/orders.html">
+            <a href="login/login.html" class="icon-link">Login</a>  <!-- Link to Login Page -->
+            <a href="register/register.html" class="icon-link">Register</a>  <!-- Link to Register Page -->
+            <a href="Cart/orders.html">
                 <img src="cart.png" alt="Shopping Cart" class="icon-img">
             </a>
         </div>
     </div>
+    
 
     <div class="container">
         <div class="grid">
@@ -313,8 +316,30 @@
         }
 
         function addToCart() {
-            alert("Item added to cart!");
+    let title = document.getElementById("popup-title").innerText;
+    let price = document.getElementById("popup-price").innerText;
+    
+    // Find the corresponding product image
+    let allProducts = document.querySelectorAll(".product");
+    let imageSrc = "";
+
+    allProducts.forEach((product) => {
+        let productTitle = product.querySelector(".product-title").innerText;
+        if (productTitle === title) {
+            imageSrc = product.querySelector("img").src;
         }
+    });
+
+    // Retrieve cart from localStorage or create a new one
+    let cart = JSON.parse(localStorage.getItem("cart")) || [];
+    cart.push({ title, price, imageSrc });
+
+    // Save updated cart back to localStorage
+    localStorage.setItem("cart", JSON.stringify(cart));
+
+    alert(title + " added to cart!");
+}
+
     </script>
 </body>
 </html>
