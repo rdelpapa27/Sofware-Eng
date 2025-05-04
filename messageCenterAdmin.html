@@ -1,0 +1,209 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Message Center</title>
+  <link rel="stylesheet" href="styles.css" />
+  <style>
+    html, body {
+      height: 100%;
+      margin: 0;
+      padding: 0;
+    }
+
+    .container {
+      display: flex;
+      flex-direction: column;
+      min-height: 100vh;
+    }
+
+    body {
+      font-family: Arial, sans-serif;
+      background: #111;
+      color: #ddd;
+    }
+
+    .header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      background: rgba(0, 0, 0, 0.85);
+      padding: 20px 40px;
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      width: 100%;
+      z-index: 100;
+    }
+
+    .header .title {
+      font-size: 2.5em;
+      font-weight: bold;
+      flex-grow: 1;
+      text-align: center;
+    }
+
+    .header .icons {
+      display: flex;
+      align-items: center;
+      gap: 15px;
+      position: absolute;
+      left: 20px;
+    }
+
+    .nav-btn {
+      background: white;
+      color: black;
+      padding: 10px 15px;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+      transition: 0.3s;
+      font-weight: bold;
+    }
+
+    .nav-btn:hover {
+      background: #444;
+      color: white;
+    }
+
+    .message-center {
+      padding: 100px 20px 40px;
+      text-align: center;
+      flex: 1;
+    }
+
+    .section {
+      margin-bottom: 40px;
+    }
+
+    .section-title {
+      font-size: 1.8em;
+      margin-bottom: 20px;
+    }
+
+    .message-list {
+      margin-top: 20px;
+      padding: 0;
+      list-style: none;
+    }
+
+    .message-item {
+      background: #222;
+      padding: 15px;
+      border-radius: 5px;
+      margin-bottom: 10px;
+      box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+      text-align: left;
+      cursor: pointer;
+      transition: 0.3s;
+    }
+
+    .message-item:hover {
+      background: #444;
+    }
+
+    .message-item h4 {
+      margin: 0;
+      font-size: 1.4em;
+    }
+
+    .message-item p {
+      margin: 5px 0;
+      font-size: 1.1em;
+    }
+
+    .message-detail {
+      display: none;
+      background: #333;
+      padding: 20px;
+      border-radius: 5px;
+      margin-top: 20px;
+    }
+
+    .message-detail h3 {
+      margin-top: 0;
+      font-size: 1.8em;
+    }
+
+    footer {
+      background: #000;
+      color: white;
+      text-align: center;
+      padding: 20px;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <header class="header">
+      <div class="icons">
+        <button class="nav-btn" onclick="location.href='adminDashboard.html'">Dashboard</button>
+      </div>
+      <div class="title">Message Center</div>
+    </header>
+
+    <section class="message-center">
+      <div class="section">
+        <h2 class="section-title">Customer Messages</h2>
+        
+        <ul class="message-list">
+          <li class="message-item" onclick="toggleMessageDetail(0)">
+            <h4>Message Title 1</h4>
+            <p>By: Customer Name 1</p>
+          </li>
+          <li class="message-item" onclick="toggleMessageDetail(1)">
+            <h4>Message Title 2</h4>
+            <p>By: Customer Name 2</p>
+          </li>
+          <li class="message-item" onclick="toggleMessageDetail(2)">
+            <h4>Message Title 3</h4>
+            <p>By: Customer Name 3</p>
+          </li>
+        </ul>
+
+        <div class="message-detail" id="message-detail-0">
+          <h3>Message Title 1</h3>
+          <p><strong>Customer Name:</strong> Customer Name 1</p>
+          <p><strong>Email:</strong> customer1@example.com</p>
+          <p><strong>Message:</strong> This is the message from the customer.</p>
+        </div>
+
+        <div class="message-detail" id="message-detail-1">
+          <h3>Message Title 2</h3>
+          <p><strong>Customer Name:</strong> Customer Name 2</p>
+          <p><strong>Email:</strong> customer2@example.com</p>
+          <p><strong>Message:</strong> This is the message from the customer.</p>
+        </div>
+
+        <div class="message-detail" id="message-detail-2">
+          <h3>Message Title 3</h3>
+          <p><strong>Customer Name:</strong> Customer Name 3</p>
+          <p><strong>Email:</strong> customer3@example.com</p>
+          <p><strong>Message:</strong> This is the message from the customer.</p>
+        </div>
+
+      </div>
+    </section>
+
+    <footer>
+      <p>&copy; 2025 Deluxury Autos. All Rights Reserved.</p>
+    </footer>
+  </div>
+
+  <script>
+    function toggleMessageDetail(index) {
+      const details = document.querySelectorAll('.message-detail');
+      details.forEach((detail, i) => {
+        if (i === index) {
+          detail.style.display = (detail.style.display === 'none' || detail.style.display === '') ? 'block' : 'none';
+        } else {
+          detail.style.display = 'none';
+        }
+      });
+    }
+  </script>
+</body>
+</html>

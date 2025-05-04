@@ -1,0 +1,213 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Admin Analytics</title>
+  <link rel="stylesheet" href="styles.css" />
+  <style>
+    html, body {
+      height: 100%;
+      margin: 0;
+      padding: 0;
+    }
+
+    .container {
+      display: flex;
+      flex-direction: column;
+      min-height: 100vh;
+    }
+
+    body {
+      font-family: Arial, sans-serif;
+      background: #111;
+      color: #ddd;
+    }
+
+    .header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      background: rgba(0, 0, 0, 0.85);
+      padding: 20px 40px;
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      width: 100%;
+      z-index: 100;
+    }
+
+    .header .title {
+      font-size: 2.5em;
+      font-weight: bold;
+      flex-grow: 1;
+      text-align: center;
+    }
+
+    .header .icons {
+      display: flex;
+      align-items: center;
+      gap: 15px;
+      position: absolute;
+      left: 20px;
+    }
+
+    .nav-btn {
+      background: white;
+      color: black;
+      padding: 10px 15px;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+      transition: 0.3s;
+      font-weight: bold;
+    }
+
+    .nav-btn:hover {
+      background: #444;
+      color: white;
+    }
+
+    .dashboard {
+      padding: 100px 20px 40px;
+      text-align: center;
+      flex: 1;
+    }
+
+    .section {
+      margin-bottom: 40px;
+    }
+
+    .section-title {
+      font-size: 1.8em;
+      margin-bottom: 20px;
+    }
+
+    .analytics-cards {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 30px;
+    }
+
+    .card {
+      background: #222;
+      padding: 20px;
+      border-radius: 10px;
+      width: 300px;
+      box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+      text-align: left;
+      animation: fadeIn 1.5s ease-in;
+    }
+
+    .card h3 {
+      margin-top: 0;
+      font-size: 1.2em;
+      margin-bottom: 10px;
+    }
+
+    .card ul {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+    }
+
+    .card li {
+      padding: 5px 0;
+      border-bottom: 1px solid #333;
+    }
+
+    .filter-bar {
+      margin-bottom: 30px;
+    }
+
+    .filter-bar select {
+      width: 200px;
+      padding: 10px;
+      background-color: #333;
+      color: #ddd;
+      border: none;
+      border-radius: 5px;
+      font-size: 1em;
+    }
+
+    footer {
+      background: #000;
+      color: white;
+      text-align: center;
+      padding: 20px;
+    }
+
+    @keyframes fadeIn {
+      from {
+        opacity: 0;
+        transform: translateY(-20px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <header class="header">
+      <div class="icons">
+        <button class="nav-btn" onclick="location.href='adminDashboard.html'">Dashboard</button>
+      </div>
+      <div class="title">Admin Analytics</div>
+    </header>
+
+    <section class="dashboard">
+      <div class="section">
+        <div class="filter-bar">
+          <label for="time-range">Time Range: </label>
+          <select id="time-range">
+            <option value="1d">Last 1 Day</option>
+            <option value="7d">Last 7 Days</option>
+            <option value="30d">Last 30 Days</option>
+            <option value="all">All Time</option>
+          </select>
+        </div>
+
+        <div class="analytics-cards">
+          <div class="card">
+            <h3>Top 3 Active Users</h3>
+            <ul>
+              <li>User1 (x actions)</li>
+              <li>User2 (x actions)</li>
+              <li>User3 (x actions)</li>
+            </ul>
+          </div>
+
+          <div class="card">
+            <h3>Top 3 Productive Employees</h3>
+            <ul>
+              <li>Employee 1 (x orders)</li>
+              <li>Employee 2 (x orders)</li>
+              <li>Employee 3 (x orders)</li>
+            </ul>
+          </div>
+
+          <div class="card">
+            <h3>Top 5 Popular Items</h3>
+            <ul>
+              <li>Item 1 (Sold: x) </li>
+              <li>Item 2 (Sold: x) </li>
+              <li>Item 3 (Sold: x)</li>
+              <li>Item 4 (Sold: x)</li>
+              <li>Item 5 (Sold: x)</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <footer>
+      <p>&copy; 2025 Deluxury Autos. All Rights Reserved.</p>
+    </footer>
+  </div>
+</body>
+</html>
