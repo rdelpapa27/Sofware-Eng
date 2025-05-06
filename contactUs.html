@@ -4,7 +4,7 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Contact Us</title>
-  <link rel="stylesheet" href="styles.css" />
+
   <style>
     html, body {
       height: 100%;
@@ -145,7 +145,8 @@
     <section class="contact-form">
       <div class="section">
         <h2 class="section-title">We'd love to hear from you!</h2>
-        <form action="submit_message.html" method="POST">
+        <form id="contactForm">
+
           <div class="form-group">
             <label for="title">Message Title</label>
             <input type="text" id="title" name="title" required />
@@ -172,5 +173,7 @@
       <p>&copy; 2025 Deluxury Autos. All Rights Reserved.</p>
     </footer>
   </div>
+  <script src="contact.js"></script>
+
 </body>
 </html>
